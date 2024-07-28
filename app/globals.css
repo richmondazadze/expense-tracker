@@ -17,6 +17,14 @@
     @apply px-4 py-2 text-sm capitalize  rounded-2xl;
   }
 
+  .btn-primary {
+    @apply bg-slate-800 border-slate-700 text-lime-400;
+  }
+
+  .btn-primary-outline {
+    @apply border border-lime-400 text-lime-400;
+  }
+
   .btn-danger {
     @apply bg-red-600 border-red-600;
   }

@@ -15,9 +15,9 @@ function Nav() {
 
           <small>Hi, Rich</small>
         </div>
-        <nav className="flex items-center gap-3">
+        <nav className="flex items-center gap-4">
           <div className="text-2xl">
-            <MdOutlineQueryStats />
+            <MdOutlineQueryStats className="hover:scale-110 transition-all duration-200" />
           </div>
           <div>
             <button className="btn btn-danger">Logout</button>
