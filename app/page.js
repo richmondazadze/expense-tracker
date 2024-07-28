@@ -1,3 +1,5 @@
+"use client";
+
 import { currencyFormatter } from "@/lib/utlis";
 
 import ExpenseCategoryItem from "@/components/ExpenseCategoryItem";
@@ -47,7 +49,7 @@ export default function Home() {
       {/* Chart */}
       <section className="py-6">
         <h3 className="text-2xl">Stats</h3>
-        <div>
+        <div className="w-1/2 mx-auto">
           <Doughnut
             data={{
               labels: DUMMY_DATA.map((expense) => expense.title),
@@ -57,7 +59,7 @@ export default function Home() {
                   data: DUMMY_DATA.map((expense) => expense.amount),
                   backgroundColor: DUMMY_DATA.map((expense) => expense.color),
                   borderColor: ["#18b318"],
-                  borderWidth: 10,
+                  borderWidth: 5,
                 },
               ],
             }}
