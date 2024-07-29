@@ -13,7 +13,7 @@ function Nav() {
             />
           </div>
 
-          <small>Hi, Rich</small>
+          <h4>Hi, Rich</h4>
         </div>
         <nav className="flex items-center gap-4">
           <div className="text-2xl">
