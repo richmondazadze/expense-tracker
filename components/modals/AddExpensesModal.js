@@ -50,6 +50,7 @@ function AddExpensesModal({ show, onClose }) {
 
     try {
       await addCategory({ title, color, total: 0 });
+      setShowAddExpense(false);
     } catch (error) {
       console.log(error.message);
     }
