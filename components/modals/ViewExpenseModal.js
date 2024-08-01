@@ -3,6 +3,7 @@ import Modal from "../modal";
 import { useContext } from "react";
 import { financeContext } from "@/lib/store/finance-context";
 import { currencyFormatter } from "@/lib/utlis";
+import { toast } from "react-toastify";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 
 function ViewExpenseModal({ show, onClose, expense }) {
@@ -12,8 +13,10 @@ function ViewExpenseModal({ show, onClose, expense }) {
   const deleteExpenseHandler = async () => {
     try {
       await deleteExpenseCategory(expense.id);
+      toast.success("Category deleted successfully");
     } catch (error) {
       console.log(error.message);
+      toast.error(error.message);
     }
   };
   const deleteExpenseItemHandler = async (item) => {
@@ -25,8 +28,10 @@ function ViewExpenseModal({ show, onClose, expense }) {
       };
 
       await deleteExpenseItem(updatedExpense, expense.id);
+      toast.success("Expense removed successfully");
     } catch (error) {
       console.log(error.message);
+      toast.error(error.message);
     }
   };
   return (

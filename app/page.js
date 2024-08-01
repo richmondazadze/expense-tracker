@@ -5,6 +5,8 @@ import { useState, useContext, useEffect } from "react";
 import { financeContext } from "@/lib/store/finance-context";
 import { currencyFormatter } from "@/lib/utlis";
 
+import { authContext } from "@/lib/store/auth-context";
+
 import ExpenseCategoryItem from "@/components/ExpenseCategoryItem";
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -14,6 +16,8 @@ import { Doughnut } from "react-chartjs-2";
 import AddIncomeModal from "@/components/modals/AddIncomeModal";
 import AddExpensesModal from "@/components/modals/AddExpensesModal";
 
+import SignIn from "@/components/SignIn";
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Home() {
@@ -22,6 +26,8 @@ export default function Home() {
 
   const [balance, setBalance] = useState(0);
   const { expenses, income } = useContext(financeContext);
+
+  const { user } = useContext(authContext);
 
   useEffect(() => {
     const newBalance =
@@ -34,6 +40,10 @@ export default function Home() {
 
     setBalance(newBalance);
   }, [expenses, income]);
+
+  if (!user) {
+    return <SignIn />;
+  }
 
   return (
     <>
@@ -87,7 +97,7 @@ export default function Home() {
         {/* Chart */}
         <section className="py-6">
           <h3 className="text-2xl">Stats</h3>
-          <div className="px-auto w-2/3 flex items-center mx-auto">
+          <div className="px-2 w-1/2 flex items-center mx-auto">
             <Doughnut
               data={{
                 labels: expenses.map((expense) => expense.title),
