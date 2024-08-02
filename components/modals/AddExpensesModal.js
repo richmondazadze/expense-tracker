@@ -121,33 +121,40 @@ function AddExpensesModal({ show, onClose }) {
               </div>
             </div>
           )}
+           <div className="overflow-y-scroll flex flex-col max-h-[250px] my-4 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900 ">
 
-          {expenses.map((expense) => {
-            return (
-              <button
-                key={expense.id}
-                onClick={() => {
-                  setSelectedCategory(expense.id);
-                }}
-              >
-                <div
-                  style={{
-                    boxShadow:
-                      expense.id === selectedCategory ? "1px 1px 4px" : "none",
+            {" "}
+            {/* Added scrollable container */}
+            {expenses.map((expense) => {
+              return (
+                <button
+                  key={expense.id}
+                  onClick={() => {
+                    setSelectedCategory(expense.id);
                   }}
-                  className="flex items-center justify-between px-4 py-4 bg-slate-700 rounded-3xl"
+                  className="w-3/4 mx-auto my-2"
                 >
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="w-[25px] h-[25px] rounded-full"
-                      style={{ backgroundColor: expense.color }}
-                    />
-                    <h4 className="capitalize">{expense.title}</h4>
+                  <div
+                    style={{
+                      boxShadow:
+                        expense.id === selectedCategory
+                          ? "1px 1px 4px"
+                          : "none",
+                    }}
+                    className="flex items-center justify-between px-4 py-4 w-full bg-slate-700 rounded-3xl"
+                  >
+                    <div className="flex items-center gap-2">
+                      <div
+                        className="w-[25px] h-[25px] rounded-full"
+                        style={{ backgroundColor: expense.color }}
+                      />
+                      <h4 className="capitalize">{expense.title}</h4>
+                    </div>
                   </div>
-                </div>
-              </button>
-            );
-          })}
+                </button>
+              );
+            })}
+          </div>
         </div>
       )}
 

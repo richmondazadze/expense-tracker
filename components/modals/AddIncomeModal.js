@@ -35,14 +35,14 @@ function AddIncomeModal({ show, onClose }) {
       toast.success("Income added successfully ");
     } catch (error) {
       console.log(error.message);
-      toast.error(error.message)
+      toast.error(error.message);
     }
   };
 
   const deleteIncomeEntryHandler = async (incomeId) => {
     try {
       removeIncomeItem(incomeId);
-      toast.success("Income deleted successfully")
+      toast.success("Income deleted successfully");
     } catch (error) {
       console.log(error.message);
     }
@@ -64,7 +64,7 @@ function AddIncomeModal({ show, onClose }) {
           />
         </div>
 
-        <div className="flex flex-col gap-4 py-6">
+        <div className="flex flex-col gap-3 py-6">
           <label htmlFor="amount">Description</label>
           <input
             type="text"
@@ -82,27 +82,44 @@ function AddIncomeModal({ show, onClose }) {
 
       <div className="flex flex-col gap 4 mt-6">
         <h3 className="text-2xl font-bold">Income History</h3>
-        {income.map((i) => {
-          return (
-            <div className="flex item-center justify-between" key={i.id}>
-              <div>
-                <p className="font-semibold">{i.description}</p>
-                <small className="text-xs">{i.createdAt.toISOString()}</small>
-              </div>
+        <div className="overflow-y-scroll flex flex-col max-h-[170px] my-4 mx-7 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900 ">
+          {income.map((i) => {
+            return (
+              <div className="flex item-center justify-between" key={i.id}>
+                <div className="flex flex-col my-1">
+                  <p className="font-semibold">{i.description}</p>
+                  <small className="text-2xs">
+                    {new Date(
+                      i.createdAt.toMillis
+                        ? i.createdAt.toMillis()
+                        : i.createdAt
+                    ).toLocaleDateString()}{" "}
+                    ||{" "}
+                    {new Date(
+                      i.createdAt.toMillis
+                        ? i.createdAt.toMillis()
+                        : i.createdAt
+                    ).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </small>
+                </div>
 
-              <p className="flex items-center gap-4">
-                {currencyFormatter(i.amount)}
-                <button
-                  onClick={() => {
-                    deleteIncomeEntryHandler(i.id);
-                  }}
-                >
-                  <MdOutlineDeleteOutline className="text-xl font-bold" />
-                </button>
-              </p>
-            </div>
-          );
-        })}
+                <p className="flex font-bold items-center text-l gap-4">
+                  {currencyFormatter(i.amount)}
+                  <button
+                    onClick={() => {
+                      deleteIncomeEntryHandler(i.id);
+                    }}
+                  >
+                    <MdOutlineDeleteOutline className="text-xl font-bold" />
+                  </button>
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </Modal>
   );

@@ -38,26 +38,35 @@ function ViewExpenseModal({ show, onClose, expense }) {
     <Modal show={show} onClose={onClose}>
       <div className="flex items-center justify-between">
         <h3 className="capitalize font-bold text-3xl">{expense.title}</h3>
-      </div>
-
-      <div>
-        <h4 className="my-4 text-2xl">Expense History</h4>
+      </div>{" "}
+      {/* Added overflow and max height */}
+      <h4 className="my-4 text-2xl">Expense History</h4>
+      <div className="overflow-y-scroll flex flex-col max-h-[270px] my-4 mx-7 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900 ">
         {expense.items.map((item) => {
           return (
-            <div key={item.id} className="flex items-center justify-between">
-              <small>
-                {item.createdAt.toMillis
-                  ? new Date(item.createdAt.toMillis()).toISOString()
-                  : item.createdAt.toISOString()}
+            <div
+              key={item.id}
+              className="flex items-center justify-between mx-2 my-2"
+            >
+              <small className="text-3xs">
+                {new Date(
+                  item.createdAt.toMillis
+                    ? item.createdAt.toMillis()
+                    : item.createdAt
+                ).toLocaleDateString()}{" "}
+                ||{" "}
+                {new Date(
+                  item.createdAt.toMillis
+                    ? item.createdAt.toMillis()
+                    : item.createdAt
+                ).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               </small>
-              <p className="flex items-center gap-2">
-                {" "}
+              <p className="flex font-bold items-left justify-start text-lg gap-4">
                 {currencyFormatter(item.amount)}
-                <button
-                  onClick={() => {
-                    deleteExpenseItemHandler(item);
-                  }}
-                >
+                <button onClick={() => deleteExpenseItemHandler(item)}>
                   <MdOutlineDeleteOutline className="text-xl font-bold" />
                 </button>
               </p>

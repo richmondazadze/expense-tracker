@@ -96,8 +96,8 @@ export default function Home() {
 
         {/* Chart */}
         <section className="py-6">
-          <h3 className="text-2xl">Stats</h3>
-          <div className="px-2 w-1/2 flex items-center mx-auto">
+          <h3 className="text-2xl mb-10">Stats</h3>
+          <div className="w-2/3 flex items-center justify-center mx-auto">
             <Doughnut
               data={{
                 labels: expenses.map((expense) => expense.title),
@@ -106,13 +106,14 @@ export default function Home() {
                     label: "Expenses",
                     data: expenses.map((expense) => expense.total),
                     backgroundColor: expenses.map((expense) => expense.color),
-                    borderColor: ["#181e24"],
+                    borderColor: ["#181e100"],
                     borderWidth: 5,
                   },
                 ],
               }}
             />
           </div>
+          <a id="stats" />
         </section>
       </main>
     </>

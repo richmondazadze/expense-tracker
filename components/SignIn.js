@@ -1,9 +1,21 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { authContext } from "@/lib/store/auth-context";
 import Image from "next/image";
 
+export const metadata = {
+  title: "PennyTrack - Sign In",
+};
+
 function SignIn() {
   const { googleLoginHandler } = useContext(authContext);
+  const [showTerms, setShowTerms] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
+
+  const openTermsModal = () => setShowTerms(true);
+  const closeTermsModal = () => setShowTerms(false);
+  const openPrivacyModal = () => setShowPrivacy(true);
+  const closePrivacyModal = () => setShowPrivacy(false);
+
   return (
     <>
       <section className="bg-gray-50 min-h-screen md:min-h-svh flex items-center justify-center">
@@ -49,6 +61,22 @@ function SignIn() {
               </svg>
               <span className="font-bold text-slate-900">Google</span>
             </button>
+            <p className="text-center mt-6 text-slate-900 text-sm">
+              By continuing, you agree to our <br />
+              <button
+                className="underline mr-2 font-bold"
+                onClick={openTermsModal}
+              >
+                Terms of Service
+              </button>
+              &
+              <button
+                className="underline ml-2 font-bold"
+                onClick={openPrivacyModal}
+              >
+                Privacy Policy
+              </button>
+            </p>
           </div>
 
           <div className="md:block hidden w-1/2 bg-slate-900 rounded-3xl ">
@@ -62,6 +90,122 @@ function SignIn() {
           </div>
         </div>
       </section>
+
+      {/* Terms of Service Modal */}
+      {showTerms && (
+        <div className="modal-overlay" onClick={closeTermsModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2 className="text-slate-900 font-bold text-3xl text-center">
+              Terms of Service
+            </h2>
+            <hr></hr>
+            <br></br>
+            <div className="overflow-y-scroll flex flex-col max-h-[300px] my-4 mx-2 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900">
+              <p className="text-slate-900">
+                Welcome to PennyTrack! By using this app, you agree to the
+                following terms:
+                <br />
+                <br></br>
+                1. <span className="font-bold">User Account:</span> You are
+                responsible for maintaining the confidentiality of your account
+                and password. You are also responsible for all activities that
+                occur under your account.
+                <br />
+                <br></br>
+                2. <span className="font-bold">Google Login:</span> Our app
+                requires login through Google. By logging in, you allow us to
+                access your basic profile information and email address.
+                <br />
+                <br></br>
+                3. <span className="font-bold">Usage:</span> You agree to use
+                PennyTrack only for lawful purposes. You are not permitted to
+                use the app to violate any laws or infringe on the rights of
+                others.
+                <br />
+                <br></br>
+                4. <span className="font-bold">Data Accuracy:</span> We strive
+                to provide accurate financial tracking. However, you are
+                responsible for ensuring the accuracy of your data inputs and
+                reviewing your financial data.
+                <br />
+                <br></br>
+                5. <span className="font-bold">
+                  Limitation of Liability:
+                </span>{" "}
+                PennyTrack is provided on an "as-is" basis. We do not guarantee
+                that the app will meet your requirements or be available
+                uninterrupted or error-free. We are not liable for any losses or
+                damages resulting from the use of the app.
+                <br />
+                <br></br>
+                6. <span className="font-bold">Modifications:</span> We reserve
+                the right to modify these terms at any time. Continued use of
+                the app signifies your acceptance of the updated terms.
+              </p>
+            </div>
+            <button className="close-button" onClick={closeTermsModal}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Privacy Policy Modal */}
+      {showPrivacy && (
+        <div className="modal-overlay" onClick={closePrivacyModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2 className="text-slate-900 font-bold text-3xl text-center">
+              Privacy Policy
+            </h2>
+            <hr />
+            <br />
+            <div className="overflow-y-scroll flex flex-col max-h-[300px] my-4 mx-2 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900">
+              <p className="text-slate-900">
+                At PennyTrack, we value your privacy. This policy outlines how
+                we handle your data:
+                <br />
+                <br />
+                1. <span className="font-bold">Data Collection:</span> We
+                collect personal information such as your name and email address
+                when you log in through Google. We also collect data related to
+                your income and expenses as you use the app.
+                <br />
+                <br />
+                2. <span className="font-bold">Data Usage:</span> We use your
+                data to provide you with accurate financial tracking and
+                insights. We do not sell or share your personal information with
+                third parties, except as required by law.
+                <br />
+                <br />
+                3. <span className="font-bold">Data Security:</span> We
+                implement security measures to protect your data. However, we
+                cannot guarantee absolute security due to the nature of the
+                internet.
+                <br />
+                <br />
+                4. <span className="font-bold">Data Retention:</span> We retain
+                your data as long as necessary to provide our services and for
+                legal compliance. You may request deletion of your data at any
+                time by contacting us.
+                <br />
+                <br />
+                5. <span className="font-bold">Cookies:</span> We use cookies to
+                enhance your experience. You can control cookie settings through
+                your browser.
+                <br />
+                <br />
+                6. <span className="font-bold">Changes to this Policy:</span> We
+                may update this Privacy Policy from time to time. We will notify
+                you of any significant changes.
+              </p>
+            </div>
+
+            <button className="close-button" onClick={closePrivacyModal}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
