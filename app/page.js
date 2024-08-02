@@ -88,9 +88,20 @@ export default function Home() {
         <section className="py-6">
           <h3 className="text-2xl">My Expenses</h3>
           <div className="flex flex-col gap-6 mt-7">
-            {expenses.map((expense) => {
-              return <ExpenseCategoryItem key={expense.id} expense={expense} />;
-            })}
+            {expenses.length === 0 ? (
+              <div className="text-center py-2">
+                <p>No expenses added yet</p>
+                <p className="mt-2 text-sm text-gray-500">
+                  Please enter some data
+                </p>
+              </div>
+            ) : (
+              expenses.map((expense) => {
+                return (
+                  <ExpenseCategoryItem key={expense.id} expense={expense} />
+                );
+              })
+            )}
           </div>
         </section>
 
@@ -98,20 +109,30 @@ export default function Home() {
         <section className="py-6">
           <h3 className="text-2xl mb-10">Stats</h3>
           <div className="w-2/3 flex items-center justify-center mx-auto">
-            <Doughnut
-              data={{
-                labels: expenses.map((expense) => expense.title),
-                datasets: [
-                  {
-                    label: "Expenses",
-                    data: expenses.map((expense) => expense.total),
-                    backgroundColor: expenses.map((expense) => expense.color),
-                    borderColor: ["#181e100"],
-                    borderWidth: 5,
-                  },
-                ],
-              }}
-            />
+            {expenses.length === 0 ? (
+              <div className="text-center py-4">
+                <p>Graph will be displayed once data becomes available..</p>
+                <p className="mt-2 text-sm text-gray-500">
+                  Please enter some data under the expenses section to see
+                  statistics
+                </p>
+              </div>
+            ) : (
+              <Doughnut
+                data={{
+                  labels: expenses.map((expense) => expense.title),
+                  datasets: [
+                    {
+                      label: "Expenses",
+                      data: expenses.map((expense) => expense.total),
+                      backgroundColor: expenses.map((expense) => expense.color),
+                      borderColor: ["#181e100"],
+                      borderWidth: 5,
+                    },
+                  ],
+                }}
+              />
+            )}
           </div>
           <a id="stats" />
         </section>
