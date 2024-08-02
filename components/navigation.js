@@ -7,7 +7,13 @@ import { authContext } from "@/lib/store/auth-context";
 import { useCurrency } from "@/lib/store/CurrencyContext"; // Import the currency context
 import { currencies } from "@/lib/store/currencies"; // Import the currencies
 import { db } from "@/lib/firebase"; // Import Firestore
-import { collection, query, where, getDocs } from "firebase/firestore"; // Import Firestore functions
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore"; // Import Firestore functions
 import jsPDF from "jspdf"; // Import jsPDF
 import { toast } from "react-toastify";
 
@@ -28,7 +34,7 @@ function Nav() {
   };
 
   // Function to check if the user has income or expense data
-  const checkUserData = async () => {
+  const setupDataListeners = () => {
     if (user) {
       const incomeRef = collection(db, "income");
       const expenseRef = collection(db, "expenses");
@@ -36,38 +42,54 @@ function Nav() {
       const incomeQuery = query(incomeRef, where("uid", "==", user.uid));
       const expenseQuery = query(expenseRef, where("uid", "==", user.uid));
 
-      const incomeSnapshot = await getDocs(incomeQuery);
-      const expenseSnapshot = await getDocs(expenseQuery);
+      const unsubscribeIncome = onSnapshot(incomeQuery, (snapshot) => {
+        const newIncomeData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          amount: doc.data().amount,
+          createdAt: doc.data().createdAt.toDate(),
+          description: doc.data().description || "Unknown",
+          source: doc.data().source || "Unknown",
+        }));
+        setIncomeData(newIncomeData);
+        setHasData((prevHasData) => prevHasData || newIncomeData.length > 0);
+      });
 
-      // Check if user has any income or expense records
-      if (!incomeSnapshot.empty || !expenseSnapshot.empty) {
-        setHasData(true);
-        setIncomeData(
-          incomeSnapshot.docs.map((doc) => ({
-            id: doc.id,
-            amount: doc.data().amount,
-            createdAt: doc.data().createdAt.toDate(),
-            description: doc.data().description || "Unknown", // Ensure description is available
-            source: doc.data().source || "Unknown", // Ensure source is available
-          }))
-        );
-        setExpenseData(
-          expenseSnapshot.docs.map((doc) => ({
-            id: doc.id,
-            color: doc.data().color || "#000000", // Default to black if not present
-            title: doc.data().title || "Untitled", // Default to 'Untitled' if not present
-            total: doc.data().total || 0, // Default to 0 if not present
-            items: doc.data().items || [], // Ensure items is an array
-          }))
-        );
-      } else {
-        setHasData(false);
-      }
+      const unsubscribeExpense = onSnapshot(expenseQuery, (snapshot) => {
+        const newExpenseData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          color: doc.data().color || "#000000",
+          title: doc.data().title || "Untitled",
+          total: doc.data().total || 0,
+          items: doc.data().items || [],
+        }));
+        setExpenseData(newExpenseData);
+        setHasData((prevHasData) => prevHasData || newExpenseData.length > 0);
+      });
+
+      // Return cleanup function
+      return () => {
+        unsubscribeIncome();
+        unsubscribeExpense();
+      };
     }
   };
 
   useEffect(() => {
-    checkUserData(); // Check user data when the component mounts or user changes
+    let unsubscribe;
+    if (user) {
+      unsubscribe = setupDataListeners();
+    } else {
+      setHasData(false);
+      setIncomeData([]);
+      setExpenseData([]);
+    }
+
+    // Cleanup function
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
   }, [user]);
 
   function handleGenerateReport() {
