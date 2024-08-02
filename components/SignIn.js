@@ -8,13 +8,30 @@ export const metadata = {
 
 function SignIn() {
   const { googleLoginHandler } = useContext(authContext);
-  const [showTerms, setShowTerms] = useState(false);
-  const [showPrivacy, setShowPrivacy] = useState(false);
+  const [termsTranslate, setTermsTranslate] = useState("scale-0");
+  const [privacyTranslate, setPrivacyTranslate] = useState("scale-0");
+  const [showTerms, setShowTerms] = useState(false); // Define showTerms state
+  const [showPrivacy, setShowPrivacy] = useState(false); // Define showPrivacy state
 
-  const openTermsModal = () => setShowTerms(true);
-  const closeTermsModal = () => setShowTerms(false);
-  const openPrivacyModal = () => setShowPrivacy(true);
-  const closePrivacyModal = () => setShowPrivacy(false);
+  const openTermsModal = () => {
+    setShowTerms(true);
+    setTimeout(() => setTermsTranslate("scale-100"), 10);
+  };
+
+  const closeTermsModal = () => {
+    setTermsTranslate("scale-0");
+    setTimeout(() => setShowTerms(false), 300);
+  };
+
+  const openPrivacyModal = () => {
+    setShowPrivacy(true);
+    setTimeout(() => setPrivacyTranslate("scale-100"), 10);
+  };
+
+  const closePrivacyModal = () => {
+    setPrivacyTranslate("scale-0");
+    setTimeout(() => setShowPrivacy(false), 300);
+  };
 
   return (
     <>
@@ -93,14 +110,15 @@ function SignIn() {
 
       {/* Terms of Service Modal */}
       {showTerms && (
-        <div className="modal-overlay" onClick={closeTermsModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2 className="text-slate-900 font-bold text-3xl text-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div
+            className={`bg-white w-4/5 max-w-lg h-[80vh] p-6 rounded-2xl  flex flex-col items-center transform transition-transform duration-300 ease-in-out ${termsTranslate}`}
+          >
+            <h2 className="text-slate-900 font-bold text-3xl text-center mb-4">
               Terms of Service
             </h2>
-            <hr></hr>
-            <br></br>
-            <div className="overflow-y-scroll flex flex-col max-h-[300px] my-4 mx-2 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900">
+            <hr className="mb-4" />
+            <div className="overflow-y-scroll flex flex-col h-[calc(70vh-100px)] my-4 mx-2 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900">
               <p className="text-slate-900">
                 Welcome to PennyTrack! By using this app, you agree to the
                 following terms:
@@ -143,7 +161,10 @@ function SignIn() {
                 the app signifies your acceptance of the updated terms.
               </p>
             </div>
-            <button className="close-button" onClick={closeTermsModal}>
+            <button
+              className="mt-4 bg-lime-500 text-white w-1/2 px-4 py-2 rounded"
+              onClick={closeTermsModal}
+            >
               Close
             </button>
           </div>
@@ -152,14 +173,15 @@ function SignIn() {
 
       {/* Privacy Policy Modal */}
       {showPrivacy && (
-        <div className="modal-overlay" onClick={closePrivacyModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2 className="text-slate-900 font-bold text-3xl text-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div
+            className={`bg-white w-4/5 max-w-lg h-[80vh] p-6 rounded-2xl  flex flex-col items-center transform transition-transform duration-300 ease-in-out ${privacyTranslate}`}
+          >
+            <h2 className="text-slate-900 font-bold text-3xl text-center mb-4">
               Privacy Policy
             </h2>
-            <hr />
-            <br />
-            <div className="overflow-y-scroll flex flex-col max-h-[300px] my-4 mx-2 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900">
+            <hr className="mb-4" />
+            <div className="overflow-y-scroll flex flex-col h-[calc(70vh-100px)] my-4 mx-2 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900">
               <p className="text-slate-900">
                 At PennyTrack, we value your privacy. This policy outlines how
                 we handle your data:
@@ -200,7 +222,10 @@ function SignIn() {
               </p>
             </div>
 
-            <button className="close-button" onClick={closePrivacyModal}>
+            <button
+              className="mt-4 bg-lime-500 text-white w-1/2 px-4 py-2 rounded"
+              onClick={closePrivacyModal}
+            >
               Close
             </button>
           </div>
