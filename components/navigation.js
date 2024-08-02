@@ -51,7 +51,7 @@ function Nav() {
           source: doc.data().source || "Unknown",
         }));
         setIncomeData(newIncomeData);
-        setHasData((prevHasData) => prevHasData || newIncomeData.length > 0);
+        updateHasData(newIncomeData, expenseData);
       });
 
       const unsubscribeExpense = onSnapshot(expenseQuery, (snapshot) => {
@@ -63,7 +63,7 @@ function Nav() {
           items: doc.data().items || [],
         }));
         setExpenseData(newExpenseData);
-        setHasData((prevHasData) => prevHasData || newExpenseData.length > 0);
+        updateHasData(incomeData, newExpenseData);
       });
 
       // Return cleanup function
@@ -72,6 +72,10 @@ function Nav() {
         unsubscribeExpense();
       };
     }
+  };
+
+  const updateHasData = (incomeData, expenseData) => {
+    setHasData(incomeData.length > 0 || expenseData.length > 0);
   };
 
   useEffect(() => {
