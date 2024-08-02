@@ -16,16 +16,6 @@ import {
 } from "firebase/firestore"; // Import Firestore functions
 import jsPDF from "jspdf"; // Import jsPDF
 import { toast } from "react-toastify";
-import { db } from "@/lib/firebase"; // Import Firestore
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  onSnapshot,
-} from "firebase/firestore"; // Import Firestore functions
-import jsPDF from "jspdf"; // Import jsPDF
-import { toast } from "react-toastify";
 
 function Nav() {
   const { user, loading, logout } = useContext(authContext);
@@ -475,7 +465,6 @@ function Nav() {
 
             <h4>
               <span className="mr-2">Hi,</span>
-              <span className="font-bold sm:text-sm text-xl">
               <span className="font-bold sm:text-sm text-xl">
                 {getFirstName(user.displayName)}
               </span>
