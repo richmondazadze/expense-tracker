@@ -87,7 +87,7 @@ function AddIncomeModal({ show, onClose }) {
             return (
               <div className="flex item-center justify-between" key={i.id}>
                 <div className="flex flex-col my-1">
-                  <p className="font-semibold">{i.description}</p>
+                  <p className="font-semibold capitalize">{i.description}</p>
                   <small className="text-2xs">
                     {new Date(
                       i.createdAt.toMillis
