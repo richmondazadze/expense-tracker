@@ -499,7 +499,7 @@ function Nav() {
       <div className="flex items-center justify-between m-3">
         {/* Conditionally render the Generate Report button */}
         {user && !loading && (
-          <button onClick={handleGenerateReport} className="btn btn-primary">
+          <button onClick={handleGenerateReport} className="btn btn-report">
             Generate Report
           </button>
         )}

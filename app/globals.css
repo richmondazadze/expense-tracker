@@ -28,6 +28,10 @@
     @apply bg-slate-700 border-slate-700 text-lime-400;
   }
 
+  .btn-report {
+    @apply bg-lime-500 border-lime-700 text-slate-900 font-bold;
+  }
+
   .btn-primary-outline {
     @apply border border-lime-400 text-lime-400;
   }
