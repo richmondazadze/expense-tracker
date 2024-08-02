@@ -82,7 +82,7 @@ function AddIncomeModal({ show, onClose }) {
 
       <div className="flex flex-col gap 4 mt-6">
         <h3 className="text-2xl font-bold">Income History</h3>
-        <div className="overflow-y-scroll flex flex-col max-h-[170px] my-4 mx-7 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900 ">
+        <div className="overflow-y-scroll flex flex-col max-h-[170px] my-4 mx-4 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900 ">
           {income.map((i) => {
             return (
               <div className="flex item-center justify-between" key={i.id}>

@@ -11,11 +11,22 @@ import { CurrencyProvider } from "@/lib/store/CurrencyContext";
 
 export const metadata = {
   title: "PennyTrack",
+  description: "Your financial tracking app",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1.0,
+  userScalable: false,
+};
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+      </head>
       <body className="flex flex-col min-h-screen">
         <AuthContextProvider>
           <FinanceContextProvider>
@@ -23,7 +34,7 @@ export default function RootLayout({ children }) {
               <ToastContainer />
               <Nav />
               <main className="flex-grow">{children}</main>
-              <footer className="bg-gray-800 text-white py-4 text-center">
+              <footer className="bg-slate-800 text-white py-4 text-center">
                 <p>
                   &copy; {new Date().getFullYear()} PennyTrack. All rights
                   reserved.

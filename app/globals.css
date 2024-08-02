@@ -54,12 +54,20 @@
   }
 
   .modal-content {
-    background-color: white;
+    background-color: #1e293b;
     padding: 20px;
     border-radius: 8px;
     width: 80%;
     max-width: 500px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 640px) {
+    .modal-content {
+      height: 70vh;
+      margin: 1rem;
+      width: 90%;
+    }
   }
 
   .close-button {

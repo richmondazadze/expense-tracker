@@ -38,15 +38,15 @@ function SignIn() {
       <section className="bg-gray-50 min-h-screen md:min-h-svh flex items-center justify-center">
         <div className="bg-gray-300 flex rounded-3xl shadow-lg max-w-3xl p-5 items-center py-20">
           <div className="md:w-1/2 px-8 md:px-16">
-            <h2 className="font-bold text-4xl text-lime-900">Login</h2>
-            <p className="text-x mt-4 text-slate-900">
+            <h2 className="font-bold text-5xl text-slate-900">PennyTrack</h2>
+            <p className="text-x mt-4 mb-10 text-slate-900">
               Track your expenses effortlessly!
             </p>
 
-            <div className="mt-8 grid grid-cols-3 items-center text-gray-500">
-              <hr className="border-gray-400" />
-              <p className="text-center text-sm font-bold">Login with</p>
-              <hr className="border-gray-400" />
+            <div className="mt-8 grid grid-cols-1 items-center mb-10 text-gray-500">
+              <hr className="border-gray-600" />
+              <p className="text-center text-3sm font-bold">Login with</p>
+              <hr className="border-gray-600" />
             </div>
 
             <button

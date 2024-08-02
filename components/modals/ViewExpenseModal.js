@@ -41,12 +41,12 @@ function ViewExpenseModal({ show, onClose, expense }) {
       </div>{" "}
       {/* Added overflow and max height */}
       <h4 className="my-4 text-2xl">Expense History</h4>
-      <div className="overflow-y-scroll flex flex-col max-h-[270px] my-4 mx-7 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900 ">
+      <div className="overflow-y-scroll flex flex-col max-h-[270px] my-4 mx-4 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900 ">
         {expense.items.map((item) => {
           return (
             <div
               key={item.id}
-              className="flex items-center justify-between mx-2 my-2"
+              className="flex items-center justify-between mx-1 my-2"
             >
               <small className="text-3xs">
                 {new Date(

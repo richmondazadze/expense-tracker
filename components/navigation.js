@@ -203,7 +203,16 @@ function Nav() {
       doc.text("Income and Expense Report", pageWidth / 2, leftColumnYOffset, {
         align: "center",
       });
-      leftColumnYOffset += 20;
+      leftColumnYOffset += 9;
+      rightColumnYOffset = leftColumnYOffset;
+
+      doc.setFontSize(15);
+      doc.setTextColor(44, 62, 80);
+      doc.setFont("helvetica", "bold");
+      doc.text("(PennyTrack)", pageWidth / 2, leftColumnYOffset, {
+        align: "center",
+      });
+      leftColumnYOffset += 8;
       rightColumnYOffset = leftColumnYOffset;
 
       // Add a horizontal line
@@ -487,7 +496,7 @@ function Nav() {
         )}
       </div>
 
-      <div className="flex items-center justify-between mt-3">
+      <div className="flex items-center justify-between m-3">
         {/* Conditionally render the Generate Report button */}
         {user && !loading && (
           <button onClick={handleGenerateReport} className="btn btn-primary">
@@ -503,13 +512,14 @@ function Nav() {
                 id="currency-select"
                 value={currency}
                 onChange={handleCurrencyChange}
-                className="block w-25 pl-3 pr-6 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white appearance-none"
+                className="block w-25 pl-4 pr-6 py-1 text-base font-bold border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white appearance-none"
               >
+                1{" "}
                 {currencies.map((curr) => (
                   <option
                     key={curr.code}
                     value={curr.code}
-                    className="text-gray-900 dark:text-white"
+                    className="text-gray-900 font-bold sm:text-sm dark:text-white"
                   >
                     {curr.code}
                   </option>
