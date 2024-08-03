@@ -1,4 +1,4 @@
-import { useState, useContext, useRef } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import { financeContext } from "@/lib/store/finance-context";
 
 import { v4 as uuidv4 } from "uuid";
@@ -10,6 +10,20 @@ function AddExpensesModal({ show, onClose }) {
   const [expenseAmount, setExpenseAmount] = useState("");
   const [showAddExpense, setShowAddExpense] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [isSliding, setIsSliding] = useState(false);
+  const toggleAddExpense = () => {
+    setIsSliding(true);
+    setShowAddExpense((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (isSliding) {
+      const timer = setTimeout(() => {
+        setIsSliding(false);
+      }, 300); // Match this with the transition duration
+      return () => clearTimeout(timer);
+    }
+  }, [isSliding]);
 
   const { expenses, addExpenseItem, addCategory } = useContext(financeContext);
 
@@ -81,12 +95,13 @@ function AddExpensesModal({ show, onClose }) {
       {/* ExpensesCategory */}
 
       {expenseAmount > 0 && (
-        <div className="flex flex-col gap-4 mt-6">
+        <div className="flex flex-col gap-4 mt-6 relative">
           <div className="flex items-center justify-between">
             <h5 className="text-l capitalize">Select expense category</h5>
             <button
               onClick={() => {
                 setShowAddExpense(true);
+                toggleAddExpense;
               }}
               className="text-lime-400"
             >
@@ -94,8 +109,8 @@ function AddExpensesModal({ show, onClose }) {
             </button>
           </div>
 
-          {showAddExpense && (
-            <div>
+          {(showAddExpense || isSliding) && (
+            <div className="absolute top-[5px] left-0 right-0 bg-slate-800 border-lime-500 rounded-2xl mx -5 p-4 transition-transform duration-300 ease-out transform -translate-x-2">
               <input type="text" placeholder="Enter title" ref={titleRef} />
               <div className="flex items-center justify-between my-3">
                 <div className="flex items-center gap-4 mx-2">
@@ -121,8 +136,7 @@ function AddExpensesModal({ show, onClose }) {
               </div>
             </div>
           )}
-           <div className="overflow-y-scroll flex flex-col max-h-[250px] my-4 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900 ">
-
+          <div className="overflow-y-scroll flex flex-col max-h-[250px] my-4 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900 ">
             {" "}
             {/* Added scrollable container */}
             {expenses.map((expense) => {
