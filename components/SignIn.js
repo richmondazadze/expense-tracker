@@ -12,31 +12,57 @@ function SignIn() {
   const [privacyTranslate, setPrivacyTranslate] = useState("scale-0");
   const [showTerms, setShowTerms] = useState(false); // Define showTerms state
   const [showPrivacy, setShowPrivacy] = useState(false); // Define showPrivacy state
+  const [isInApp, setIsInApp] = useState(false);
+
+  function isInAppBrowser() {
+    if (typeof window !== 'undefined') {
+      const userAgent = window.navigator.userAgent || window.navigator.vendor || window.opera;
+      return /Instagram|FBAV|FBAN|Twitter|Snapchat/i.test(userAgent);
+    }
+    return false;
+  }
 
   useEffect(() => {
-    // Function to check if the user is accessing through Instagram or Snapchat
-    function isInAppBrowser() {
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      return /Instagram|Snapchat/i.test(userAgent);
-    }
+    setIsInApp(isInAppBrowser());
+  }, []);
 
-    // Function to redirect the user
-    function redirectToDefaultBrowser() {
-      const currentUrl = new URL(window.location.href);
-      currentUrl.searchParams.set('redirected', 'true');
-      window.location.replace(currentUrl.toString());
-    }
-
-    // Check and redirect if necessary
-    if (isInAppBrowser()) {
-      const currentUrl = new URL(window.location.href);
-      if (!currentUrl.searchParams.get('redirected')) {
-        redirectToDefaultBrowser();
+  function openInDefaultBrowser() {
+    const url = window.location.href;
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    
+    if (iOS) {
+      // For iOS devices
+      window.location.href = url;
+    } else {
+      // For other devices
+      const newWindow = window.open();
+      if (newWindow) {
+        newWindow.opener = null;
+        newWindow.location.href = url;
+      } else {
+        // If popup blocked, try changing location directly
+        window.location.href = url;
       }
     }
-  }, []); // The empty dependency array ensures this runs once on component mount
+  }
 
-  
+
+  return (
+    <>
+      {isInApp && (
+        <div className=" container browser-warning">
+          <p className="p-2 mt-2">
+            For the best experience, please open this page in your default
+            browser.
+          </p>
+          <button className="btn btn-report" onClick={openInDefaultBrowser}>
+            Open in Browser
+          </button>
+        </div>
+      )}
+    </>
+  );
+
   const openTermsModal = () => {
     setShowTerms(true);
     setTimeout(() => setTermsTranslate("scale-100"), 10);
