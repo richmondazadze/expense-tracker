@@ -33,7 +33,16 @@ function SignIn() {
 
     if (iOS) {
       const customUrl = `https://pennytrack.tech`;
-      window.location.href = `googlechrome://navigate?url=${customUrl}`;
+      const chromeUrl = `googlechromes://navigate?url=${encodeURIComponent(
+        customUrl
+      )}`;
+
+      window.location.href = chromeUrl;
+
+      // Fallback after a short delay if Chrome doesn't open
+      setTimeout(() => {
+        window.location.href = customUrl;
+      }, 500);
     } else if (android) {
       const intentUrl = `intent://${url.replace(
         /^https?:\/\//,
