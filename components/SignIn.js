@@ -24,10 +24,8 @@ function SignIn() {
   }
 
   useEffect(() => {
-    if (isInApp) {
-      openInDefaultBrowser();
-    }
-  }, [isInApp]);
+    setIsInApp(isInAppBrowser());
+  }, []);
 
   function openInDefaultBrowser() {
     const url = window.location.href;
