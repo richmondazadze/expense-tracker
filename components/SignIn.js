@@ -71,7 +71,7 @@ function SignIn() {
   return (
     <>
       {isInApp && (
-        <div className="container py-1 browser-warning">
+        <div className="container px-3 py-3 browser-warning">
           <p className="px-3 mb-2">
             For the best experience, please open this page in your default
             browser.
