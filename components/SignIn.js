@@ -12,31 +12,42 @@ function SignIn() {
   const [privacyTranslate, setPrivacyTranslate] = useState("scale-0");
   const [showTerms, setShowTerms] = useState(false); // Define showTerms state
   const [showPrivacy, setShowPrivacy] = useState(false); // Define showPrivacy state
+  const [isInApp, setIsInApp] = useState(false);
+
+  function isInAppBrowser() {
+    if (typeof window !== "undefined") {
+      const userAgent =
+        window.navigator.userAgent || window.navigator.vendor || window.opera;
+      return /Instagram|FBAV|FBAN|Twitter|Snapchat/i.test(userAgent);
+    }
+    return false;
+  }
 
   useEffect(() => {
-    // Function to check if the user is accessing through Instagram or Snapchat
-    function isInAppBrowser() {
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      return /Instagram|Snapchat/i.test(userAgent);
-    }
+    setIsInApp(isInAppBrowser());
+  }, []);
 
-    // Function to redirect the user
-    function redirectToDefaultBrowser() {
-      const currentUrl = new URL(window.location.href);
-      currentUrl.searchParams.set('redirected', 'true');
-      window.location.replace(currentUrl.toString());
-    }
+  function openInDefaultBrowser() {
+    const url = window.location.href;
+    window.open(url, "_system") ||
+      window.open(url, "_blank") ||
+      (window.location.href = url);
+  }
 
-    // Check and redirect if necessary
-    if (isInAppBrowser()) {
-      const currentUrl = new URL(window.location.href);
-      if (!currentUrl.searchParams.get('redirected')) {
-        redirectToDefaultBrowser();
-      }
-    }
-  }, []); // The empty dependency array ensures this runs once on component mount
+  return (
+    <>
+      {isInApp && (
+        <div className="browser-warning">
+          <p>
+            For the best experience, please open this page in your default
+            browser.
+          </p>
+          <button onClick={openInDefaultBrowser}>Open in Browser</button>
+        </div>
+      )}
+    </>
+  );
 
-  
   const openTermsModal = () => {
     setShowTerms(true);
     setTimeout(() => setTermsTranslate("scale-100"), 10);

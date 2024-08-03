@@ -231,7 +231,7 @@ function Nav() {
     // Income section
     function generateIncomeSection() {
       let totalIncome = 0;
-      doc.setFontSize(20);
+      doc.setFontSize(18);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(39, 174, 96);
       doc.text("Income", margin, leftColumnYOffset);
@@ -246,9 +246,10 @@ function Nav() {
           ? new Date(item.createdAt).toDateString()
           : "Unknown date";
         const amount = item.amount || 0;
+        const description = item.description;
         totalIncome += amount;
         doc.text(
-          `• ${createdAt}: ${formatCurrency(amount)}`,
+          `• ${createdAt}: ${formatCurrency(amount)} (${description})`,
           margin,
           leftColumnYOffset
         );
@@ -273,7 +274,7 @@ function Nav() {
     function generateExpenseBreakdown(totalExpenses, categoryTotals) {
       leftColumnYOffset += 10;
 
-      doc.setFontSize(20);
+      doc.setFontSize(18);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(41, 128, 185);
       doc.text("Expense Breakdown", margin, leftColumnYOffset);
@@ -298,7 +299,7 @@ function Nav() {
     // Summary section
     function generateSummary(totalIncome, totalExpenses) {
       checkPageBreak("left", 30);
-      doc.setFontSize(22);
+      doc.setFontSize(20);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(44, 62, 80);
       doc.text("Summary", margin, leftColumnYOffset);
@@ -348,7 +349,7 @@ function Nav() {
       let totalExpenses = 0;
       const categoryTotals = {};
 
-      doc.setFontSize(20);
+      doc.setFontSize(18);
       doc.setTextColor(231, 76, 60);
       doc.setFont("helvetica", "bold");
       doc.text("Expenses", margin + columnWidth, rightColumnYOffset);
