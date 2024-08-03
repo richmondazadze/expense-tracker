@@ -33,12 +33,9 @@ function SignIn() {
       /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     const android = /Android/.test(navigator.userAgent);
 
-    if (iOS) {
-      // For iOS devices, redirect to Safari
-      window.location.href = url; // This should open in Safari
-    } else if (android) {
-      // For Android devices, redirect to Chrome
-      window.location.href = url; // This should open in Chrome
+    if (iOS || android) {
+      // For both iOS and Android devices, redirect to the external browser
+      window.location.href = url; // This should open in the default browser
     } else {
       // For other devices, open in a new window
       const newWindow = window.open(url, "_blank"); // Open in a new tab/window
@@ -51,6 +48,12 @@ function SignIn() {
     }
   }
 
+  // Call openInDefaultBrowser when in-app browser is detected
+  useEffect(() => {
+    if (isInApp) {
+      openInDefaultBrowser(); // Call the function to redirect
+    }
+  }, [isInApp]);
   const openTermsModal = () => {
     setShowTerms(true);
     setTimeout(() => setTermsTranslate("scale-100"), 10);
