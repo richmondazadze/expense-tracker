@@ -32,18 +32,18 @@ function SignIn() {
     const android = /Android/.test(navigator.userAgent);
 
     if (iOS) {
-      // For iOS devices, redirect to Safari
-      window.open(`safari://${url}`, "_self"); // Opens in Safari
+      window.location = url; // Opens in Safari
     } else if (android) {
-      // For Android devices, redirect to Chrome
-      window.open(`googlechrome://${url}`, "_self"); // Opens in Chrome
+      const intentUrl = `intent://${url.replace(
+        /^https?:\/\//,
+        ""
+      )}#Intent;scheme=https;package=com.android.chrome;end`;
+      window.location = intentUrl; // Opens in Chrome
     } else {
-      // For other devices, open in a new window
-      const newWindow = window.open(url, "_blank"); // Open in a new tab/window
+      const newWindow = window.open(url, "_blank");
       if (newWindow) {
-        newWindow.opener = null; // Prevent the new window from having a reference to the opener
+        newWindow.opener = null;
       } else {
-        // If popup blocked, try changing location directly
         window.location.href = url;
       }
     }
@@ -68,6 +68,10 @@ function SignIn() {
     setPrivacyTranslate("scale-0");
     setTimeout(() => setShowPrivacy(false), 300);
   };
+
+  useEffect(() => {
+    setIsInApp(isInAppBrowser());
+  }, []);
 
   const handleLogin = () => {
     if (isInApp) {
