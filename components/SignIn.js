@@ -31,13 +31,21 @@ function SignIn() {
     const url = window.location.href;
     const iOS =
       /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const android = /Android/.test(navigator.userAgent);
 
     if (iOS) {
-      // For iOS devices
-      window.location.href = url;
+      // For iOS devices, open in Safari
+      window.location.href = `googlechrome://navigate?url=${encodeURIComponent(
+        url
+      )}`;
+    } else if (android) {
+      // For Android devices, open in Chrome
+      window.location.href = `googlechrome://navigate?url=${encodeURIComponent(
+        url
+      )}`;
     } else {
-      // For other devices
-      const newWindow = window.open();
+      // For other devices, open in the default browser
+      const newWindow = window.open(url);
       if (newWindow) {
         newWindow.opener = null;
         newWindow.location.href = url;
