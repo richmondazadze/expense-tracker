@@ -46,23 +46,6 @@ function SignIn() {
     }
   }
 
-
-  return (
-    <>
-      {isInApp && (
-        <div className=" container browser-warning">
-          <p className="p-2 mt-2">
-            For the best experience, please open this page in your default
-            browser.
-          </p>
-          <button className="btn btn-report" onClick={openInDefaultBrowser}>
-            Open in Browser
-          </button>
-        </div>
-      )}
-    </>
-  );
-
   const openTermsModal = () => {
     setShowTerms(true);
     setTimeout(() => setTermsTranslate("scale-100"), 10);
@@ -83,8 +66,23 @@ function SignIn() {
     setTimeout(() => setShowPrivacy(false), 300);
   };
 
+  
+
   return (
+    
     <>
+      {isInApp && (
+        <div className="container browser-warning">
+          <p className="p-2 mt-2">
+            For the best experience, please open this page in your default
+            browser.
+          </p>
+          <button className="btn btn-report" onClick={openInDefaultBrowser}>
+            Open in Browser
+          </button>
+        </div>
+      )}
+
       <section className="bg-gray-50 min-h-screen md:min-h-svh flex items-center justify-center">
         <div className="bg-gray-300 flex rounded-3xl shadow-lg max-w-3xl p-5 items-center py-20">
           <div className="md:w-1/2 px-8 md:px-16">
@@ -280,9 +278,8 @@ function SignIn() {
             </button>
           </div>
         </div>
-      )}
-    </>
-  );
+        </>
+        )}
 }
 
 export default SignIn;
