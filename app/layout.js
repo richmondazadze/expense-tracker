@@ -34,22 +34,24 @@ export default function RootLayout({ children }) {
               <ToastContainer />
               <Nav />
               <main className="flex-grow">{children}</main>
-              <footer className="bg-slate-800 text-white py-4 text-center">
-                <p>
-                  &copy; {new Date().getFullYear()} PennyTrack. All rights
-                  reserved.
-                </p>
-                <p>
-                  Developed by{" "}
-                  <a
-                    href="https://www.linkedin.com/in/richmond-azadze"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-400 hover:text-blue-300 transition-colors"
-                  >
-                    Richmond Azadze
-                  </a>
-                </p>
+              <footer className="bg-slate-800 text-white text-center">
+                <div className="py-12">
+                  <p>
+                    &copy; {new Date().getFullYear()} PennyTrack. All rights
+                    reserved.
+                  </p>
+                  <p>
+                    Developed by{" "}
+                    <a
+                      href="https://www.linkedin.com/in/richmond-azadze"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-400 hover:text-blue-300 transition-colors"
+                    >
+                      Richmond Azadze
+                    </a>
+                  </p>
+                </div>
               </footer>
             </CurrencyProvider>
           </FinanceContextProvider>
