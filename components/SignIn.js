@@ -32,7 +32,7 @@ function SignIn() {
     const android = /Android/.test(navigator.userAgent);
 
     if (iOS) {
-      window.location.href = url;
+      window.location.href = `x-web-search://${url}`;
     } else if (android) {
       const intentUrl = `intent://${url.replace(
         /^https?:\/\//,
