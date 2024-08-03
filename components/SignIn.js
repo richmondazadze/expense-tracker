@@ -45,6 +45,26 @@ function SignIn() {
       }
     }
   }
+<<<<<<< HEAD
+=======
+
+
+  return (
+    <>
+      {isInApp && (
+        <div className=" container browser-warning">
+          <p className="p-2 mt-2">
+            For the best experience, please open this page in your default
+            browser.
+          </p>
+          <button className="btn btn-report" onClick={openInDefaultBrowser}>
+            Open in Browser
+          </button>
+        </div>
+      )}
+    </>
+  );
+>>>>>>> refs/remotes/origin/master
 
   const openTermsModal = () => {
     setShowTerms(true);
