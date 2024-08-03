@@ -22,16 +22,21 @@ function SignIn() {
 
     // Function to redirect the user
     function redirectToDefaultBrowser() {
-      const url = window.location.href;
-      window.location.replace(url);
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set('redirected', 'true');
+      window.location.replace(currentUrl.toString());
     }
 
     // Check and redirect if necessary
     if (isInAppBrowser()) {
-      redirectToDefaultBrowser();
+      const currentUrl = new URL(window.location.href);
+      if (!currentUrl.searchParams.get('redirected')) {
+        redirectToDefaultBrowser();
+      }
     }
-  }, []);
+  }, []); // The empty dependency array ensures this runs once on component mount
 
+  
   const openTermsModal = () => {
     setShowTerms(true);
     setTimeout(() => setTermsTranslate("scale-100"), 10);
