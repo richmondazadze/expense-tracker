@@ -15,8 +15,9 @@ function SignIn() {
   const [isInApp, setIsInApp] = useState(false);
 
   function isInAppBrowser() {
-    if (typeof window !== 'undefined') {
-      const userAgent = window.navigator.userAgent || window.navigator.vendor || window.opera;
+    if (typeof window !== "undefined") {
+      const userAgent =
+        window.navigator.userAgent || window.navigator.vendor || window.opera;
       return /Instagram|FBAV|FBAN|Twitter|Snapchat/i.test(userAgent);
     }
     return false;
@@ -28,8 +29,9 @@ function SignIn() {
 
   function openInDefaultBrowser() {
     const url = window.location.href;
-    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    
+    const iOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
     if (iOS) {
       // For iOS devices
       window.location.href = url;
@@ -45,26 +47,6 @@ function SignIn() {
       }
     }
   }
-<<<<<<< HEAD
-=======
-
-
-  return (
-    <>
-      {isInApp && (
-        <div className=" container browser-warning">
-          <p className="p-2 mt-2">
-            For the best experience, please open this page in your default
-            browser.
-          </p>
-          <button className="btn btn-report" onClick={openInDefaultBrowser}>
-            Open in Browser
-          </button>
-        </div>
-      )}
-    </>
-  );
->>>>>>> refs/remotes/origin/master
 
   const openTermsModal = () => {
     setShowTerms(true);
@@ -86,10 +68,7 @@ function SignIn() {
     setTimeout(() => setShowPrivacy(false), 300);
   };
 
-  
-
   return (
-    
     <>
       {isInApp && (
         <div className="container browser-warning">
@@ -298,8 +277,9 @@ function SignIn() {
             </button>
           </div>
         </div>
-        </>
-        )}
+      )}
+    </>
+  );
 }
 
 export default SignIn;
