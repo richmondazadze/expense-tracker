@@ -32,17 +32,8 @@ function SignIn() {
     const android = /Android/.test(navigator.userAgent);
 
     if (iOS) {
-      const customUrl = `https://pennytrack.tech`;
-      const chromeUrl = `googlechromes://navigate?url=${encodeURIComponent(
-        customUrl
-      )}`;
-
-      window.location.href = chromeUrl;
-
-      // Fallback after a short delay if Chrome doesn't open
-      setTimeout(() => {
-        window.location.href = customUrl;
-      }, 500);
+      const customUrl = encodeURIComponent("https://pennytrack.tech");
+      window.location.href = `googlechrome-x-callback://x-callback-url/open/?url=${customUrl}`;
     } else if (android) {
       const intentUrl = `intent://${url.replace(
         /^https?:\/\//,
