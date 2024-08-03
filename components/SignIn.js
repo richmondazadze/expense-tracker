@@ -28,22 +28,22 @@ function SignIn() {
   }, []);
 
   function openInDefaultBrowser() {
-    const url = window.location.href; // Get the current URL
-    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const url = "https://pennytrack.tech"; // Directly set the URL
+    const iOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     const android = /Android/.test(navigator.userAgent);
 
     if (iOS) {
-        // For iOS devices, redirect to Safari
-        window.open(url, '_system'); // Use '_system' to open in the default browser
+      // For iOS devices, redirect to Safari
+      window.location.href = url; // This should open in Safari
     } else if (android) {
-        // For Android devices, redirect to Chrome
-        window.open(url, '_system'); // Use '_system' to open in the default browser
+      // For Android devices, redirect to Chrome
+      window.location.href = url; // This should open in Chrome
     } else {
-      // For other devices, open in the default browser
-      const newWindow = window.open(url);
+      // For other devices, open in a new window
+      const newWindow = window.open(url, "_blank"); // Open in a new tab/window
       if (newWindow) {
-        newWindow.opener = null;
-        newWindow.location.href = url;
+        newWindow.opener = null; // Prevent the new window from having a reference to the opener
       } else {
         // If popup blocked, try changing location directly
         window.location.href = url;
