@@ -18,27 +18,25 @@ function SignIn() {
     if (typeof window !== "undefined") {
       const userAgent =
         window.navigator.userAgent || window.navigator.vendor || window.opera;
-      return /Instagram|FBAV|FBAN|Twitter|Snapchat/i.test(userAgent);
+      return /Instagram|FBAV|FBAN|Twitter|Snapchat|LinkedIn|Discord/i.test(
+        userAgent
+      );
     }
     return false;
   }
 
-  useEffect(() => {
-    setIsInApp(isInAppBrowser());
-  }, []);
-
   function openInDefaultBrowser() {
-    const url = "https://pennytrack.tech"; // Directly set the URL
+    const url = "https://pennytrack.tech"; // URL to be opened
     const iOS =
       /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     const android = /Android/.test(navigator.userAgent);
 
     if (iOS) {
       // For iOS devices, redirect to Safari
-      window.location.href = url; // This should open in Safari
+      window.open(`safari://${url}`, "_self"); // Opens in Safari
     } else if (android) {
       // For Android devices, redirect to Chrome
-      window.location.href = url; // This should open in Chrome
+      window.open(`googlechrome://${url}`, "_self"); // Opens in Chrome
     } else {
       // For other devices, open in a new window
       const newWindow = window.open(url, "_blank"); // Open in a new tab/window
