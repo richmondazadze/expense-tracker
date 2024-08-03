@@ -24,7 +24,11 @@ function SignIn() {
   }
 
   useEffect(() => {
-    setIsInApp(isInAppBrowser());
+    const inApp = isInAppBrowser();
+    setIsInApp(inApp);
+    if (inApp) {
+      openInDefaultBrowser(); // Call the function if in an in-app browser
+    }
   }, []);
 
   function openInDefaultBrowser() {
