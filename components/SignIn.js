@@ -28,17 +28,16 @@ function SignIn() {
   }, []);
 
   function openInDefaultBrowser() {
-    const url = window.location.href;
-    const iOS =
-      /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const url = window.location.href; // Get the current URL
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     const android = /Android/.test(navigator.userAgent);
 
     if (iOS) {
-      // For iOS devices, open in Safari
-      window.location.href = url; // This will open the URL in Safari
+        // For iOS devices, redirect to Safari
+        window.open(url, '_system'); // Use '_system' to open in the default browser
     } else if (android) {
-      // For Android devices, open in Chrome
-      window.location.href = url; // This will open the URL in Chrome
+        // For Android devices, redirect to Chrome
+        window.open(url, '_system'); // Use '_system' to open in the default browser
     } else {
       // For other devices, open in the default browser
       const newWindow = window.open(url);
