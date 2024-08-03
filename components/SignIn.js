@@ -35,14 +35,10 @@ function SignIn() {
 
     if (iOS) {
       // For iOS devices, open in Safari
-      window.location.href = `googlechrome://navigate?url=${encodeURIComponent(
-        url
-      )}`;
+      window.location.href = url; // This will open the URL in Safari
     } else if (android) {
       // For Android devices, open in Chrome
-      window.location.href = `googlechrome://navigate?url=${encodeURIComponent(
-        url
-      )}`;
+      window.location.href = url; // This will open the URL in Chrome
     } else {
       // For other devices, open in the default browser
       const newWindow = window.open(url);
