@@ -15,9 +15,8 @@ function SignIn() {
   const [isInApp, setIsInApp] = useState(false);
 
   function isInAppBrowser() {
-    if (typeof window !== "undefined") {
-      const userAgent =
-        window.navigator.userAgent || window.navigator.vendor || window.opera;
+    if (typeof window !== 'undefined') {
+      const userAgent = window.navigator.userAgent || window.navigator.vendor || window.opera;
       return /Instagram|FBAV|FBAN|Twitter|Snapchat/i.test(userAgent);
     }
     return false;
@@ -29,20 +28,36 @@ function SignIn() {
 
   function openInDefaultBrowser() {
     const url = window.location.href;
-    window.open(url, "_system") ||
-      window.open(url, "_blank") ||
-      (window.location.href = url);
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    
+    if (iOS) {
+      // For iOS devices
+      window.location.href = url;
+    } else {
+      // For other devices
+      const newWindow = window.open();
+      if (newWindow) {
+        newWindow.opener = null;
+        newWindow.location.href = url;
+      } else {
+        // If popup blocked, try changing location directly
+        window.location.href = url;
+      }
+    }
   }
+
 
   return (
     <>
       {isInApp && (
-        <div className="browser-warning">
-          <p>
+        <div className=" container browser-warning">
+          <p className="p-2 mt-2">
             For the best experience, please open this page in your default
             browser.
           </p>
-          <button onClick={openInDefaultBrowser}>Open in Browser</button>
+          <button className="btn btn-report" onClick={openInDefaultBrowser}>
+            Open in Browser
+          </button>
         </div>
       )}
     </>
