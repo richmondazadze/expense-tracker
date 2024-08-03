@@ -71,6 +71,14 @@ function SignIn() {
     setTimeout(() => setShowPrivacy(false), 300);
   };
 
+  const handleLogin = () => {
+    if (isInApp) {
+      openInDefaultBrowser(); // Call the function when in an in-app browser
+    } else {
+      googleLoginHandler(); // Proceed with login in the current browser
+    }
+  };
+
   return (
     <>
       {isInApp && (
@@ -100,7 +108,7 @@ function SignIn() {
             </div>
 
             <button
-              onClick={googleLoginHandler}
+              onClick={handleLogin}
               className="bg-white border py-3 w-full rounded-2xl mt-5 flex justify-center items-center text-2sm hover:scale-110 duration-400"
             >
               <svg
