@@ -24,12 +24,10 @@ function SignIn() {
   }
 
   useEffect(() => {
-    const inApp = isInAppBrowser();
-    setIsInApp(inApp);
-    if (inApp) {
-      openInDefaultBrowser(); // Call the function if in an in-app browser
+    if (isInApp) {
+      openInDefaultBrowser();
     }
-  }, []);
+  }, [isInApp]);
 
   function openInDefaultBrowser() {
     const url = window.location.href;
