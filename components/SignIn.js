@@ -32,7 +32,8 @@ function SignIn() {
     const android = /Android/.test(navigator.userAgent);
 
     if (iOS) {
-      alert("Please open this link in Safari: " + url);
+      const customUrl = `https://pennytrack.tech`;
+      window.location.href = `googlechrome://navigate?url=${customUrl}`;
     } else if (android) {
       const intentUrl = `intent://${url.replace(
         /^https?:\/\//,
