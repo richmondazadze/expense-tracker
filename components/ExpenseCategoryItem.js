@@ -1,6 +1,6 @@
 import { currencyFormatter } from "@/lib/utlis";
 import { useState } from "react";
-import ViewExpenseModal from "./modals/viewExpenseModal";
+import ViewExpenseModal from "./modals/ViewExpenseModal";
 
 function ExpenseCategoryItem({ expense }) {
   const [showViewExpenseModal, setViewExpenseModal] = useState(false);
