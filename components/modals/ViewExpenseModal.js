@@ -41,12 +41,12 @@ function ViewExpenseModal({ show, onClose, expense }) {
       </div>{" "}
       {/* Added overflow and max height */}
       <h4 className="my-4 text-2xl">Expense History</h4>
-      <div className="overflow-y-scroll flex flex-col max-h-[270px] my-4 mx-4 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900 ">
+      <div className="overflow-y-scroll flex flex-col max-h-[270px] my-4 scrollbar-thumb-rounded-2xl scrollbar-track-rounded-full scrollbar-thin scrollbar-thumb-lime-400 scrollbar-track-slate-900 ">
         {expense.items.map((item) => {
           return (
             <div
               key={item.id}
-              className="flex items-center justify-between mx-1 my-2"
+              className="flex items-center justify-between my-2"
             >
               <small className="text-3xs">
                 {new Date(
@@ -64,7 +64,7 @@ function ViewExpenseModal({ show, onClose, expense }) {
                   minute: "2-digit",
                 })}
               </small>
-              <p className="flex font-bold items-left justify-start text-lg gap-4">
+              <p className="flex font-bold items-left justify-start text-lg gap-1">
                 {currencyFormatter(item.amount)}
                 <button onClick={() => deleteExpenseItemHandler(item)}>
                   <MdOutlineDeleteOutline className="text-xl font-bold" />
