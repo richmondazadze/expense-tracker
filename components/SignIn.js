@@ -32,7 +32,7 @@ function SignIn() {
     const android = /Android/.test(navigator.userAgent);
 
     if (iOS) {
-      window.location = url; // Opens in Safari
+      alert("Please open this link in Safari: " + url);
     } else if (android) {
       const intentUrl = `intent://${url.replace(
         /^https?:\/\//,
