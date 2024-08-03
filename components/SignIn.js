@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { authContext } from "@/lib/store/auth-context";
 import Image from "next/image";
 
@@ -12,6 +12,25 @@ function SignIn() {
   const [privacyTranslate, setPrivacyTranslate] = useState("scale-0");
   const [showTerms, setShowTerms] = useState(false); // Define showTerms state
   const [showPrivacy, setShowPrivacy] = useState(false); // Define showPrivacy state
+
+  useEffect(() => {
+    // Function to check if the user is accessing through Instagram or Snapchat
+    function isInAppBrowser() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      return /Instagram|Snapchat/i.test(userAgent);
+    }
+
+    // Function to redirect the user
+    function redirectToDefaultBrowser() {
+      const url = window.location.href;
+      window.location.replace(url);
+    }
+
+    // Check and redirect if necessary
+    if (isInAppBrowser()) {
+      redirectToDefaultBrowser();
+    }
+  }, []);
 
   const openTermsModal = () => {
     setShowTerms(true);
