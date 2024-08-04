@@ -63,16 +63,26 @@ function AddExpensesModal({ show, onClose }) {
   };
 
   const addCategoryHandler = async () => {
-    const title = titleRef.current.value;
+    const title = titleRef.current.value.trim(); // Trim whitespace
     const color = colorRef.current.value;
+
+    // Check if title is empty
+    if (!title) {
+      toast.error("Category title is required");
+      return; // Exit the function early
+    }
 
     try {
       await addCategory({ title, color, total: 0 });
       setShowAddExpense(false);
-      toast.success("Category created ");
+      toast.success("Category created");
+
+      // Optionally, clear the input fields
+      titleRef.current.value = "";
+      colorRef.current.value = "";
     } catch (error) {
-      console.log(error.message);
-      toast.error(error.message);
+      console.error("Error adding category:", error);
+      toast.error(error.message || "Failed to create category");
     }
   };
 
@@ -111,7 +121,12 @@ function AddExpensesModal({ show, onClose }) {
 
           {(showAddExpense || isSliding) && (
             <div className="absolute top-[5px] left-0 right-0 bg-slate-800 border-lime-500 rounded-2xl mx -5 p-4 transition-transform duration-300 ease-out transform -translate-x-2">
-              <input type="text" placeholder="Enter title" ref={titleRef} />
+              <input
+                type="text"
+                required
+                placeholder="Enter title"
+                ref={titleRef}
+              />
               <div className="flex items-center justify-between my-3">
                 <div className="flex items-center gap-4 mx-2">
                   <label>Pick Color</label>

@@ -1,4 +1,3 @@
-// app/api/send-email/route.js
 import { NextResponse } from "next/server";
 import Mailjet from "node-mailjet";
 
@@ -9,10 +8,16 @@ const mailjetClient = Mailjet.apiConnect(
 
 export async function POST(request) {
   try {
-    console.log("Request received at send-email route");
-    const { email, displayName } = await request.json();
+    const { email, displayName, isNewUser } = await request.json();
+
+    if (!isNewUser) {
+      console.log("User is not new, skipping welcome email");
+      return NextResponse.json({ message: "Welcome email not required" });
+    }
+
+    console.log(`Sending welcome email to: ${email}`);
+
     const firstName = displayName.split(" ")[0];
-    console.log(`Sending email to: ${email}`);
 
     const result = await mailjetClient
       .post("send", { version: "v3.1" })
