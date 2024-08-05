@@ -36,6 +36,14 @@ export async function POST(request) {
             ],
             Subject: "Welcome to PennyTrack!",
             TextPart: `Hello ${firstName},\n\nThank you for joining PennyTrack! We're thrilled to have you with us and can't wait for you to start managing your finances more efficiently.\n\nIf you have any questions or need assistance, feel free to reach out. We're here to help!\n\nBest regards,\nThe PennyTrack Team`,
+            HTMLPart: `
+            <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+              <h2 style="color: #4CAF50;">Welcome to PennyTrack, ${firstName}!</h2>
+              <p>Thank you for joining PennyTrack! We're thrilled to have you with us and can't wait for you to start managing your finances more efficiently.</p>
+              <p>If you have any questions or need assistance, feel free to reach out. We're here to help!</p>
+              <p style="font-weight: bold;">Best regards,<br>The PennyTrack Team</p>
+            </div>
+          `,
           },
         ],
       });
